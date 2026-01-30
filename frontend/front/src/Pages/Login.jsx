@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../../firebase";
@@ -8,6 +8,8 @@ export default function Login() {
   const [password, setPassword] = useState();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -26,6 +28,7 @@ export default function Login() {
           password,
         );
         console.log("Logged in : ", idToken);
+        navigate("/dashboard");
       } catch (err) {
         setError(err.message);
       }
