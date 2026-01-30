@@ -1,11 +1,11 @@
-import admin from "../Config/firebaseAdmin";
+import admin from "../Config/firebaseAdmin.js";
 
 export async function verifyFirebaseToken(req, res, next){
-    const authUser = req.headers.authorization;
+    const authHeader = req.headers.authorization;
 
     if(!authHeader) return res.status(401).send("No token");
 
-    const token = authHeader.spill(" ")[1];
+    const token = authHeader.split(" ")[1];
 
     try{
         const decoded = await admin.auth().verifyIdToken(token);

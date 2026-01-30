@@ -4,6 +4,7 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
 const connectDB = require("./Config/db");
+const { verifyFirebaseToken } = require("./Middleware/Middleware");
 
 const app = express();
 
@@ -13,6 +14,13 @@ app.use(express.json());
 
 // connect DB
 connectDB();
+
+app.get("/api/protected", verifyFirebaseToken, (req, res) => {
+    res.json({
+        message: "This is a protected route",
+        user: req.user,
+    });
+});
 
 // routes
 app.use("/api/auth", authRoutes);
