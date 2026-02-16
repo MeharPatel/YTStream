@@ -1,11 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { signup, login } = require("../Controllers/authController");
 const jwt = require("jsonwebtoken");
 const { verifyFirebaseToken } = require("../Middleware/Middleware");
-
-router.post("/signup", signup);
-router.post("/login", login);
 
 router.post("/stream-token", verifyFirebaseToken, (req, res) => {
   const { videoId } = req.body;

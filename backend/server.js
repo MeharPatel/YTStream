@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const authRoutes = require("./routes/authRoutes");
+const authRoutes = require("./Routes/authRoutes");
+const streamRoutes = require("./Routes/streamRoutes");
 const connectDB = require("./Config/db");
 const { verifyFirebaseToken } = require("./Middleware/Middleware");
 
@@ -24,6 +25,7 @@ app.get("/api/protected", verifyFirebaseToken, (req, res) => {
 
 // routes
 app.use("/api/auth", authRoutes);
+app.use("/api", streamRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
